@@ -99,9 +99,9 @@ export default function LeadForm() {
               name="lastName"
               autoComplete="family-name"
             />
-            {formik.touched.lastName && formik.errors.lastName &&<div className="text-red-300 text-xs py-1">
+            {formik.touched.lastName && formik.errors.lastName &&<Typography color={'error'}  className="text-red-300 text-xs py-1">
             {formik.errors.lastName}
-              </div>}
+              </Typography>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -114,9 +114,9 @@ export default function LeadForm() {
               name="email"
               autoComplete="email"
             />
-             {formik.touched.email && formik.errors.email &&<div className="text-red-300 text-xs py-1">
+             {formik.touched.email && formik.errors.email && <Typography color={'error'} className="text-red-300 text-xs py-1">
             {formik.errors.email}
-              </div>}
+              </Typography>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -129,9 +129,9 @@ export default function LeadForm() {
               type="text"
               id="phone"
             />
-            {formik.touched.phone && formik.errors.phone &&<div className="text-red-300 text-xs py-1">
+            {formik.touched.phone && formik.errors.phone && <Typography color={'error'}  className="text-red-300 text-xs py-1">
             {formik.errors.phone}
-              </div>}
+              </Typography>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -143,9 +143,9 @@ export default function LeadForm() {
               type="text"
               id="company"
             />
-             {formik.touched.company && formik.errors.company &&<div className="text-red-300 text-xs py-1">
+             {formik.touched.company && formik.errors.company &&<Typography color={'error'}  className="text-red-300 text-xs py-1">
             {formik.errors.company}
-              </div>}
+              </Typography>}
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
