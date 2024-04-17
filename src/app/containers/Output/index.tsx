@@ -18,7 +18,7 @@ export default function AustraliaDataGrid() {
     fetchData(1);
   }, []);
 
-  const fetchData = async (page) => {
+  const fetchData = async (page:number) => {
     try {
       const response = await axios.get(`/api/entities?page=${page}`);
       const jsonData = response.data;
@@ -62,8 +62,11 @@ export default function AustraliaDataGrid() {
       field: "created",
       headerName: "Created",
       width: 200,
-      valueGetter: (value, row) =>
-        `${dayjs(row.created).format("DD/MM/YYYY") ?? ""}`,
+      valueGetter: (value:any, row: any) =>{
+        console.log(value)
+        return `${dayjs(row.created).format("DD/MM/YYYY") ?? ""}`
+      }
+      
     },
   ];
 
@@ -72,7 +75,7 @@ export default function AustraliaDataGrid() {
       <Box sx={{ width: "100%", py: 5 }}>
         <DataGrid
           rows={data}
-          getRowId={(row) => row._id}
+          getRowId={(row: any) => row?._id}
           columns={columns}
           initialState={{
             pagination: {
