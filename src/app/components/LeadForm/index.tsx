@@ -45,10 +45,9 @@ export default function LeadForm() {
       // Handle form submission
       console.log("Form submitted with values:", values);
       const res = await postLeadForm(values);
-      if(res){
+      console.log(res);
         navigate("/australia-business");
-      }
-     
+      
     },
   });
 
