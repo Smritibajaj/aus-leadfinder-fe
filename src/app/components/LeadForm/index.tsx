@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { postLeadForm } from "../../utils/apiMethods";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   firstName: "",
@@ -36,6 +37,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LeadForm() {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -43,9 +45,11 @@ export default function LeadForm() {
       // Handle form submission
       console.log("Form submitted with values:", values);
       const res = await postLeadForm(values);
-      console.log(res)
+      if(res){
+        navigate("/australia-business");
+      }
+     
     },
-    
   });
 
   return (
