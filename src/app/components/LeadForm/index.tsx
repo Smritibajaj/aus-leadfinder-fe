@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { postLeadForm } from "../../utils/apiMethods";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const initialValues = {
   firstName: "",
@@ -41,11 +42,15 @@ export default function LeadForm() {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      
       // Handle form submission
       console.log("Form submitted with values:", values);
+      const toastId = toast.loading('Submitting')
       const res = await postLeadForm(values);
       console.log(res);
       navigate("/australia-business");
+      toast.dismiss(toastId);
+      toast.success('Our team will be get it touch soon.')
     },
   });
 
