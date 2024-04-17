@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
-import { DataGrid, GridPaginationModel } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
@@ -34,7 +34,7 @@ export default function AustraliaDataGrid() {
 
 
   const columns: any = [
-    { field: "ABN", headerName: "ABN", width: 150 },
+    { field: "ABN", headerName: "ABN", width: 150, headerClassName: 'super-app-theme--header', },
     {
       field: "EntityTypeText",
       headerName: "Entity Type",
@@ -46,21 +46,25 @@ export default function AustraliaDataGrid() {
       headerName: "Given Name",
       width: 150,
       sortable: true,
+      headerClassName: 'super-app-theme--header',
     },
     {
       field: "FamilyName",
       headerName: "Family Name",
       width: 150,
       sortable: true,
+      headerClassName: 'super-app-theme--header',
     },
     {
       field: "NonIndividualNameText",
       headerName: "Non-Individual Name",
+      headerClassName: 'super-app-theme--header',
       width: 200,
     },
     {
       field: "created",
       headerName: "Created",
+      headerClassName: 'super-app-theme--header',
       width: 200,
       valueGetter: (value: any, row: any) => {
         console.log(value);
@@ -73,6 +77,11 @@ export default function AustraliaDataGrid() {
     <Container>
       <Box sx={{ width: "100%", py: 5 }}>
         <DataGrid
+        sx={{
+          '& .MuiDataGrid-columnHeaderTitle': {
+            fontWeight: 700
+          },
+        }}
           rows={data}
           paginationMode="server"
           getRowId={(row: any) => row?._id}
