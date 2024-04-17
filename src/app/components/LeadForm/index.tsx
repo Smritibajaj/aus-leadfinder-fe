@@ -29,7 +29,6 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email address")
     .required("Email is required"),
   phone: Yup.string()
-    .matches(/^\d{10}$/, "Phone number must be 10 digits")
     .required("Phone number is required"),
   company: Yup.string()
     .min(2, "Company name must be at least 2 characters")
@@ -46,8 +45,7 @@ export default function LeadForm() {
       console.log("Form submitted with values:", values);
       const res = await postLeadForm(values);
       console.log(res);
-        navigate("/australia-business");
-      
+      navigate("/australia-business");
     },
   });
 
@@ -81,6 +79,9 @@ export default function LeadForm() {
               label="First Name"
               autoFocus
             />
+            {formik.touched.firstName && formik.errors.firstName &&<div className="text-red-300 text-xs py-1">
+            {formik.errors.firstName}
+              </div>}
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -93,6 +94,9 @@ export default function LeadForm() {
               name="lastName"
               autoComplete="family-name"
             />
+            {formik.touched.lastName && formik.errors.lastName &&<div className="text-red-300 text-xs py-1">
+            {formik.errors.lastName}
+              </div>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -105,6 +109,9 @@ export default function LeadForm() {
               name="email"
               autoComplete="email"
             />
+             {formik.touched.email && formik.errors.email &&<div className="text-red-300 text-xs py-1">
+            {formik.errors.email}
+              </div>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -117,6 +124,9 @@ export default function LeadForm() {
               type="text"
               id="phone"
             />
+            {formik.touched.phone && formik.errors.phone &&<div className="text-red-300 text-xs py-1">
+            {formik.errors.phone}
+              </div>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -128,6 +138,9 @@ export default function LeadForm() {
               type="text"
               id="company"
             />
+             {formik.touched.company && formik.errors.company &&<div className="text-red-300 text-xs py-1">
+            {formik.errors.company}
+              </div>}
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
