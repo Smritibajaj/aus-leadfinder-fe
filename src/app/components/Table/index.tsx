@@ -1,4 +1,4 @@
-import * as React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-export default function BasicTable({ rows }) {
+export default function BasicTable({ rows }:any) {
   return (
     <TableContainer
       sx={{
@@ -30,7 +30,7 @@ export default function BasicTable({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row) => (
+          {rows?.map((row: any) => (
             <TableRow
               key={`${row.type}-${row.location}`}
               sx={{

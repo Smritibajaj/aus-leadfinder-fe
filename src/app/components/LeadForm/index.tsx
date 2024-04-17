@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -44,8 +43,9 @@ export default function LeadForm() {
       // Handle form submission
       console.log("Form submitted with values:", values);
       const res = await postLeadForm(values);
-      
+      console.log(res)
     },
+    
   });
 
   return (

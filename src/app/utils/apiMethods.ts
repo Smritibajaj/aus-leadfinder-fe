@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from "./axiosInstance";
 
 const apiUrl = "https://aus-leadfinder.vercel.app";
 
-export const postLeadForm = async (data) => {
+export const postLeadForm = async (data: any) => {
   const response = await axiosInstance.post(`${apiUrl}/users`, data);
   return response;
 };

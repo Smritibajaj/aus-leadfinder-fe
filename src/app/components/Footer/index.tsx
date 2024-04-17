@@ -12,6 +12,7 @@ export default function Footer() {
       <BottomNavigation
         value={value}
         onChange={(event, newValue) => {
+          event.preventDefault()
           setValue(newValue);
         }}
         sx={{

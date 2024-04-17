@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { APP_USER_URLS } from "../constants/urls";
 
 export const getApiResponseErrorMessage = (object: any) => {
@@ -10,6 +11,7 @@ export const getApiResponseErrorMessage = (object: any) => {
 
 export const getResponseFromApiResponse = (object: any): any => {
   const { data, status, headers } = object;
+  console.log(status)
   if (data?.meta || data?.data?.length || data?.data?.length == 0) {
  
     return { data: data, meta: data?.meta };
