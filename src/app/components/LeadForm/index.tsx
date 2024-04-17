@@ -6,16 +6,47 @@ import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { postLeadForm } from "../../utils/apiMethods";
+
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  company: "",
+};
+
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, "First name must be at least 2 characters")
+    .required("First name is required"),
+  lastName: Yup.string()
+    .min(2, "Last name must be at least 2 characters")
+    .required("Last name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  phone: Yup.string()
+    .matches(/^\d{10}$/, "Phone number must be 10 digits")
+    .required("Phone number is required"),
+  company: Yup.string()
+    .min(2, "Company name must be at least 2 characters")
+    .required("Company name is required"),
+});
 
 export default function LeadForm() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      // Handle form submission
+      console.log("Form submitted with values:", values);
+      const res = await postLeadForm(values);
+      
+    },
+  });
 
   return (
     <Box
@@ -28,7 +59,12 @@ export default function LeadForm() {
       <Typography component="h1" variant="h5">
         Experience Excellence: Start Your Free Trial Today!
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box
+        component="form"
+        noValidate
+        onSubmit={formik.handleSubmit}
+        sx={{ mt: 3 }}
+      >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -37,6 +73,8 @@ export default function LeadForm() {
               required
               fullWidth
               id="firstName"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
               label="First Name"
               autoFocus
             />
@@ -47,6 +85,8 @@ export default function LeadForm() {
               fullWidth
               id="lastName"
               label="Last Name"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
               name="lastName"
               autoComplete="family-name"
             />
@@ -57,6 +97,8 @@ export default function LeadForm() {
               fullWidth
               id="email"
               label="Email Address"
+              value={formik.values.email}
+              onChange={formik.handleChange}
               name="email"
               autoComplete="email"
             />
@@ -67,6 +109,8 @@ export default function LeadForm() {
               fullWidth
               name="phone"
               label="Phone Number"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
               type="text"
               id="phone"
             />
@@ -74,10 +118,12 @@ export default function LeadForm() {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              name="company_name"
+              name="company"
+              value={formik.values.company}
+              onChange={formik.handleChange}
               label="Company Name"
               type="text"
-              id="company_name"
+              id="company"
             />
           </Grid>
           <Grid item xs={12}>
@@ -93,7 +139,7 @@ export default function LeadForm() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          Start Free Trial
         </Button>
       </Box>
     </Box>
