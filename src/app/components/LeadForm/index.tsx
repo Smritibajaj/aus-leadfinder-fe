@@ -79,9 +79,9 @@ export default function LeadForm() {
               label="First Name"
               autoFocus
             />
-            {formik.touched.firstName && formik.errors.firstName &&<div className="text-red-300 text-xs py-1">
+            {formik.touched.firstName && formik.errors.firstName &&<Typography color={'error'} className="text-red-300 text-xs py-1">
             {formik.errors.firstName}
-              </div>}
+              </Typography>}
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
