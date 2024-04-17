@@ -42,7 +42,6 @@ export default function LeadForm() {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      
       // Handle form submission
       console.log("Form submitted with values:", values);
       const toastId = toast.loading('Submitting')
