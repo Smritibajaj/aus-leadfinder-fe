@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -8,30 +9,29 @@ import dayjs from "dayjs";
 
 export default function AustraliaDataGrid() {
   const [data, setData] = useState([]);
-  const [pagination, setPagination] = useState({
-    total: 10,
-    perPage: 10,
-    currentPage: 0,
-    totalPages: 0,
+  const [total, setTotal] = useState(20);
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 20,
+    page: 0,
   });
   useEffect(() => {
-    fetchData(1);
-  }, []);
+    fetchData();
+  }, [paginationModel]);
 
-  const fetchData = async (page:number) => {
+
+  const fetchData = async () => {
     try {
-      const response = await axios.get(`/api/entities?page=${page}`);
+      const response = await axios.get(
+        `/api/entities?page=${paginationModel.page}&limit=${paginationModel.pageSize}`
+      );
       const jsonData = response.data;
       setData(jsonData.data);
-      setPagination(jsonData.pagination);
+      setTotal(jsonData?.pagination.total);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const handlePageChange = (newPaginationModel: GridPaginationModel) => {
-    fetchData(newPaginationModel.page);
-  };
 
   const columns: any = [
     { field: "ABN", headerName: "ABN", width: 150 },
@@ -62,11 +62,10 @@ export default function AustraliaDataGrid() {
       field: "created",
       headerName: "Created",
       width: 200,
-      valueGetter: (value:any, row: any) =>{
-        console.log(value)
-        return `${dayjs(row.created).format("DD/MM/YYYY") ?? ""}`
-      }
-      
+      valueGetter: (value: any, row: any) => {
+        console.log(value);
+        return `${dayjs(row.created).format("DD/MM/YYYY") ?? ""}`;
+      },
     },
   ];
 
@@ -75,20 +74,13 @@ export default function AustraliaDataGrid() {
       <Box sx={{ width: "100%", py: 5 }}>
         <DataGrid
           rows={data}
+          paginationMode="server"
           getRowId={(row: any) => row?._id}
           columns={columns}
-          initialState={{
-            pagination: {
-              rowCount: pagination.total,
-              paginationModel: {
-                pageSize: pagination.perPage,
-                page: pagination.currentPage,
-              },
-            },
-          }}
-          rowCount={pagination.total}
-          onPaginationModelChange={handlePageChange}
-          pageSizeOptions={[pagination.perPage]}
+          paginationModel={paginationModel}
+          rowCount={total}
+          onPaginationModelChange={setPaginationModel}
+          pageSizeOptions={[10, 20, 50, 100]}
           disableRowSelectionOnClick
         />
       </Box>
